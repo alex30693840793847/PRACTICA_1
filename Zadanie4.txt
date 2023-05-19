@@ -1,0 +1,85 @@
+XAML:
+<Window x:Class="Zadanie4.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zadanie4"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="A: " FontSize="40"/>
+        <TextBlock Text="X: " Grid.Row="1" FontSize="40"/>
+
+        <TextBox x:Name="OTV" Grid.Row="3" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+        <TextBox x:Name="A" Grid.Column="1" Grid.ColumnSpan="4"/>
+        <TextBox x:Name="X" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="4"/>
+        <Button Content="OK" x:Name="BTN" Grid.Row="2" Grid.ColumnSpan="5" Click="BTN_Click"/>
+    </Grid>
+</Window>
+
+CS:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using static System.Math;
+
+namespace Zadanie4
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void BTN_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                double a = Convert.ToDouble(A.Text);
+                double x = Convert.ToDouble(X.Text);
+                double p = (1 / Cos(x)) + Log(Abs(Tan(x / 2))) + (x / (1 + (x / 1 + x)));
+                double alf = Pow(p,5) * Sqrt(a*Pow(x,3) + 2) / 2* Cos(x);
+                OTV.Text = $"Ответ:\n{alf:N2}";
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Введены не корректные данные");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}
+

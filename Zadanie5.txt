@@ -1,0 +1,103 @@
+XAML:
+<Window x:Class="Zadanie5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zadanie5"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="A1: "/>
+        <TextBlock Text="B1: " Grid.Row="1"/>
+        <TextBlock Text="C1: " Grid.Row="2"/>
+        <TextBlock Text="A2: " Grid.Row="3"/>
+        <TextBlock Text="B2: " Grid.Row="4"/>
+        <TextBlock Text="C2: " Grid.Row="5"/>
+        <TextBox x:Name="A1" Grid.Column="1" Grid.ColumnSpan="3"/>
+        <TextBox x:Name="B1" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1"/>
+        <TextBox x:Name="C1" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="2"/>
+        <TextBox x:Name="A2" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="3"/>
+        <TextBox x:Name="B2" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="4"/>
+        <TextBox x:Name="C2" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="5"/>
+
+        <Button Content="OK" Grid.Row="6" Grid.ColumnSpan="5" Click="Button_Click"/>
+        <TextBox x:Name="OTV" Grid.Row="7" Grid.ColumnSpan="5" Grid.RowSpan="2"/>
+    </Grid>
+</Window>
+
+CS:
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace Zadanie5
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                double a1 = Convert.ToDouble(A1.Text);
+                double b1 = Convert.ToDouble(B1.Text);
+                double c1 = Convert.ToDouble(C1.Text);
+                double a2 = Convert.ToDouble(A2.Text);
+                double b2 = Convert.ToDouble(B2.Text);
+                double c2 = Convert.ToDouble(C2.Text);
+                double d = a1 * b2 - a2 * b1;
+                double y = (a1*c2 - a2*c1)/ d;
+                double x = (c1*b2 - c2*b1) / d;
+                OTV.Text = $"Ответ:\n x = {x}" + $"\n y = {y}";
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Введены не корректные данные");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+    }
+}
+
